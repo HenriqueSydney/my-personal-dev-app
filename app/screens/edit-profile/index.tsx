@@ -2,13 +2,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as FileSystem from 'expo-file-system'
 import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from 'expo-router'
-import * as SQLite from 'expo-sqlite'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { Button, IconButton } from 'react-native-paper'
 import * as zod from 'zod'
 
+import { userRepository } from '@/app/repositories/user'
 import { Box } from '@/components/ui/Box'
 import { Header } from '@/components/ui/Header'
 import { SafeBox } from '@/components/ui/SafeBox'
@@ -38,7 +38,6 @@ const signUpFormValidationSchema = zod.object({
 export type SignUpForm = zod.infer<typeof signUpFormValidationSchema>
 
 export default function Profile() {
-  const db = SQLite.useSQLiteContext()
   const { user, setUser } = useUser()
   const { showToast } = useToast()
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
@@ -66,7 +65,7 @@ export default function Profile() {
       return
     }
     try {
-      const newsLetterBooleanLike = data.newsLetter ? 1 : 0
+      const { updateUserByEmail } = await userRepository()
       if (userPhoto) {
         const fileName = userPhoto.split('/').pop()
         const pathToAppUserPhoto = `${FileSystem.documentDirectory}${fileName}`
@@ -77,29 +76,47 @@ export default function Profile() {
           to: pathToAppUserPhoto,
         })
 
-        await db.runAsync(
-          'UPDATE users SET name = $name,  newsLetterOption = $newsLetterBooleanLike, photo = $photo  WHERE id = $id',
-          {
-            $name: data.name,
-            $newsLetterBooleanLike: newsLetterBooleanLike,
-            $photo: pathToAppUserPhoto,
-            $id: user.id,
+        await updateUserByEmail({
+          user,
+          data: {
+            email: user.email,
+            name: data.name,
+            photo: pathToAppUserPhoto,
+            newsLetterOption: data.newsLetter,
           },
-        )
+        })
+
+        // await db.runAsync(
+        //   'UPDATE users SET name = $name,  newsLetterOption = $newsLetterBooleanLike, photo = $photo  WHERE id = $id',
+        //   {
+        //     $name: data.name,
+        //     $newsLetterBooleanLike: newsLetterBooleanLike,
+        //     $photo: pathToAppUserPhoto,
+        //     $id: user.id,
+        //   },
+        // )
         const updatedUser = Object.assign(user, {
           name: data.name,
           photo: pathToAppUserPhoto,
         })
         await setUser(updatedUser)
       } else {
-        await db.runAsync(
-          'UPDATE users SET name = $name,  newsLetterOption = $newsLetterBooleanLike WHERE id = $id',
-          {
-            $name: data.name,
-            $newsLetterBooleanLike: newsLetterBooleanLike,
-            $id: user.id,
+        await updateUserByEmail({
+          user,
+          data: {
+            email: user.email,
+            name: data.name,
+            newsLetterOption: data.newsLetter,
           },
-        )
+        })
+        // await db.runAsync(
+        //   'UPDATE users SET name = $name,  newsLetterOption = $newsLetterBooleanLike WHERE id = $id',
+        //   {
+        //     $name: data.name,
+        //     $newsLetterBooleanLike: newsLetterBooleanLike,
+        //     $id: user.id,
+        //   },
+        // )
         const updatedUser = Object.assign(user, {
           name: data.name,
         })
@@ -108,6 +125,7 @@ export default function Profile() {
       showToast('Perfil atualizado com sucesso', 'success')
       goBack()
     } catch (error) {
+      console.log(error)
       showToast('Um erro ocorreu. Tente novamente', 'error')
     }
   }

@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as FileSystem from 'expo-file-system'
 import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from 'expo-router'
-import * as SQLite from 'expo-sqlite'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
@@ -20,6 +19,8 @@ import { UserPhoto } from '@/components/ui/UserPhoto'
 import { useToast } from '@/hooks/useToast'
 import { findFirstErrorZodMessage } from '@/utils/findFirstErrorZodMessage'
 import { generateHash } from '@/utils/generateHash'
+
+import { userRepository } from '../repositories/user'
 
 const signUpFormValidationSchema = zod.object({
   name: zod
@@ -58,7 +59,6 @@ export type SignUpForm = zod.infer<typeof signUpFormValidationSchema>
 
 export default function SignUp() {
   const navigation = useNavigation()
-  const db = SQLite.useSQLiteContext()
 
   const { showToast } = useToast()
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
@@ -98,11 +98,9 @@ export default function SignUp() {
         showToast('Por favor, selecione uma foto', 'error')
         return
       }
+      const { getUserByEmail, createUser } = await userRepository()
 
-      const doesUserExists = await db.getFirstAsync(
-        'SELECT name, password, email, photo FROM users WHERE email=?;',
-        data.email,
-      )
+      const doesUserExists = await getUserByEmail(data.email)
 
       if (doesUserExists) {
         throw new Error('Usuário já existe')
@@ -117,18 +115,13 @@ export default function SignUp() {
         to: pathToAppUserPhoto,
       })
 
-      const newsLetterBooleanLike = data.newsLetter ? 1 : 0
-
-      await db.runAsync(
-        'INSERT INTO users (name, password, email, photo) values (?, ?, ?, ?);',
-        [
-          data.name,
-          passwordHash,
-          data.email,
-          pathToAppUserPhoto,
-          newsLetterBooleanLike,
-        ],
-      )
+      await createUser({
+        name: data.name,
+        passwordHash,
+        newsLetterOption: data.newsLetter,
+        email: data.email,
+        photo: pathToAppUserPhoto,
+      })
 
       reset()
       navigation.navigate('screens/login/index')
