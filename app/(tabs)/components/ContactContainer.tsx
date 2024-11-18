@@ -7,6 +7,7 @@ import * as zod from 'zod'
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
 import { TextInput } from '@/components/ui/TextInput'
+import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
 import { findFirstErrorZodMessage } from '@/utils/findFirstErrorZodMessage'
 
@@ -41,6 +42,7 @@ const concatFormValidationSchema = zod.object({
 export type ContactForm = zod.infer<typeof concatFormValidationSchema>
 
 export function ContactContainer() {
+  const { localizedStrings } = useLanguage()
   const { showToast } = useToast()
 
   const contactForm = useForm<ContactForm>({
@@ -60,7 +62,10 @@ export function ContactContainer() {
   } = contactForm
 
   async function onSubmit() {
-    showToast('Mensagem enviada com sucesso', 'success')
+    showToast(
+      localizedStrings.homeScreen.contactContainer.messageSendSuccessMessage,
+      'success',
+    )
     reset()
   }
 
@@ -84,11 +89,23 @@ export function ContactContainer() {
         gap: 15,
       }}
     >
-      <Text variant="headlineMedium">Open to Work</Text>
-      <TextInput label="Nome" control={control} name="name" />
-      <TextInput label="E-mail para contato" control={control} name="email" />
+      <Text variant="headlineMedium">
+        {localizedStrings.homeScreen.contactContainer.title}
+      </Text>
       <TextInput
-        label="Escreva sua mensagem"
+        label={localizedStrings.globals.namePlaceholder}
+        control={control}
+        name="name"
+      />
+      <TextInput
+        label={
+          localizedStrings.homeScreen.contactContainer.contactEmailPlaceholder
+        }
+        control={control}
+        name="email"
+      />
+      <TextInput
+        label={localizedStrings.globals.messagePlaceholder}
         numberOfLines={5}
         control={control}
         name="text"
@@ -98,7 +115,7 @@ export function ContactContainer() {
         mode="outlined"
         onPress={handleSubmit(onSubmit)}
       >
-        Enviar
+        {localizedStrings.globals.sendButtonLabel}
       </Button>
     </Box>
   )

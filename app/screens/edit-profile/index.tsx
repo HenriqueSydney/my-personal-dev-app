@@ -16,6 +16,7 @@ import { Skeleton } from '@/components/ui/Skeleton'
 import { Switch } from '@/components/ui/Switch'
 import { TextInput } from '@/components/ui/TextInput'
 import { UserPhoto } from '@/components/ui/UserPhoto'
+import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
 import { useUser } from '@/hooks/useUser'
 
@@ -38,15 +39,16 @@ const signUpFormValidationSchema = zod.object({
 export type SignUpForm = zod.infer<typeof signUpFormValidationSchema>
 
 export default function Profile() {
+  const { localizedStrings } = useLanguage()
   const { user, setUser } = useUser()
   const { showToast } = useToast()
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState<string | null>(null)
-  const { navigate, goBack } = useNavigation()
+  const { goBack } = useNavigation()
 
   if (!user) {
-    showToast('Usuário não localizado!', 'error')
-    navigate('(tabs)')
+    showToast(localizedStrings.sharedMessages.errors.userNotFound, 'error')
+    goBack()
   }
 
   const contactForm = useForm<SignUpForm>({
@@ -61,7 +63,7 @@ export default function Profile() {
 
   const onFormSubmit = async (data: SignUpForm) => {
     if (!user) {
-      showToast('Usuário não localizado!', 'error')
+      showToast(localizedStrings.sharedMessages.errors.userNotFound, 'error')
       return
     }
     try {
@@ -86,15 +88,6 @@ export default function Profile() {
           },
         })
 
-        // await db.runAsync(
-        //   'UPDATE users SET name = $name,  newsLetterOption = $newsLetterBooleanLike, photo = $photo  WHERE id = $id',
-        //   {
-        //     $name: data.name,
-        //     $newsLetterBooleanLike: newsLetterBooleanLike,
-        //     $photo: pathToAppUserPhoto,
-        //     $id: user.id,
-        //   },
-        // )
         const updatedUser = Object.assign(user, {
           name: data.name,
           photo: pathToAppUserPhoto,
@@ -109,24 +102,17 @@ export default function Profile() {
             newsLetterOption: data.newsLetter,
           },
         })
-        // await db.runAsync(
-        //   'UPDATE users SET name = $name,  newsLetterOption = $newsLetterBooleanLike WHERE id = $id',
-        //   {
-        //     $name: data.name,
-        //     $newsLetterBooleanLike: newsLetterBooleanLike,
-        //     $id: user.id,
-        //   },
-        // )
+
         const updatedUser = Object.assign(user, {
           name: data.name,
         })
         await setUser(updatedUser)
       }
-      showToast('Perfil atualizado com sucesso', 'success')
+      showToast(localizedStrings.profile.updateProfileSuccessMessage, 'success')
       goBack()
     } catch (error) {
       console.log(error)
-      showToast('Um erro ocorreu. Tente novamente', 'error')
+      showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
     }
   }
 
@@ -141,7 +127,10 @@ export default function Profile() {
       })
 
       if (photoSelected.canceled) {
-        showToast('Usuário cancelou a seleção da foto', 'warning')
+        showToast(
+          localizedStrings.sharedMessages.photoSelectionCanceled,
+          'warning',
+        )
         return
       }
 
@@ -151,7 +140,7 @@ export default function Profile() {
         setUserPhoto(photoUri)
       }
     } catch (error) {
-      showToast('Um erro ocorreu. Tente novamente', 'error')
+      showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
     } finally {
       setPhotoIsLoading(false)
     }
@@ -165,7 +154,10 @@ export default function Profile() {
         height: '100%',
       }}
     >
-      <Header title="Editar perfil" marginBottom={10} />
+      <Header
+        title={localizedStrings.profile.updateProfileButtonLabel}
+        marginBottom={10}
+      />
       <Box
         style={{
           width: '100%',
@@ -189,14 +181,18 @@ export default function Profile() {
         )}
       </Box>
       <Box style={{ marginTop: 35, gap: 16, padding: 10 }}>
-        <TextInput label="Nome" control={control} name="name" />
+        <TextInput
+          label={localizedStrings.globals.namePlaceholder}
+          control={control}
+          name="name"
+        />
         <Controller
           control={control}
           name="newsLetter"
           render={({ field }) => {
             return (
               <Switch
-                label="Aceito receber a Newsletter"
+                label={localizedStrings.globals.newsLatterLabel}
                 value={field.value}
                 onChange={field.onChange}
               />
@@ -206,10 +202,10 @@ export default function Profile() {
         <Box style={{ gap: 25, marginTop: 35 }}>
           <Button
             icon="account-group"
-            mode="outlined"
+            mode="contained"
             onPress={handleSubmit(onFormSubmit)}
           >
-            Atualizar cadastro
+            {localizedStrings.profile.updateProfileButtonLabel}
           </Button>
         </Box>
       </Box>

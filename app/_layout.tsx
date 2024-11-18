@@ -13,6 +13,7 @@ import { SQLiteProvider } from 'expo-sqlite'
 import { useEffect } from 'react'
 import { PaperProvider } from 'react-native-paper'
 
+import { I18nContextProvider } from '@/context/I18nContext'
 import { ToastContextProvider } from '@/context/ToastContext'
 import { UserContextProvider } from '@/context/UserContext'
 import { useColorScheme } from '@/hooks/useColorScheme'
@@ -44,41 +45,64 @@ export default function RootLayout() {
       <PaperProvider>
         <PrismicProvider client={client}>
           <SQLiteProvider databaseName="UserDB.db" onInit={migrateDbIfNeeded}>
-            <UserContextProvider>
-              <ToastContextProvider>
-                <Stack>
-                  <Stack.Screen
-                    name="(tabs)"
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="screens/profile/index"
-                    options={{ headerShown: false, navigationBarHidden: false }}
-                  />
+            <I18nContextProvider>
+              <UserContextProvider>
+                <ToastContextProvider>
+                  <Stack>
+                    <Stack.Screen
+                      name="(tabs)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="screens/profile/index"
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: false,
+                      }}
+                    />
 
-                  <Stack.Screen
-                    name="screens/edit-profile/index"
-                    options={{ headerShown: false, navigationBarHidden: false }}
-                  />
-
-                  <Stack.Screen
-                    name="screens/signup"
-                    options={{ headerShown: false, navigationBarHidden: false }}
-                  />
-                  <Stack.Screen
-                    key="Login"
-                    name="screens/login/index"
-                    options={{ headerShown: false, navigationBarHidden: false }}
-                  />
-                  <Stack.Screen
-                    key="Post"
-                    name="screens/post/index"
-                    options={{ headerShown: false, navigationBarHidden: false }}
-                  />
-                  <Stack.Screen name="+not-found" />
-                </Stack>
-              </ToastContextProvider>
-            </UserContextProvider>
+                    <Stack.Screen
+                      name="screens/edit-profile/index"
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="screens/update-password/index"
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="screens/signup/index"
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      key="Login"
+                      name="screens/login/index"
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      key="Post"
+                      name="screens/post/index"
+                      options={{
+                        headerShown: false,
+                        navigationBarHidden: false,
+                      }}
+                    />
+                    <Stack.Screen name="+not-found" />
+                  </Stack>
+                </ToastContextProvider>
+              </UserContextProvider>
+            </I18nContextProvider>
           </SQLiteProvider>
         </PrismicProvider>
       </PaperProvider>

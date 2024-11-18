@@ -6,10 +6,12 @@ import { Box } from '@/components/ui/Box'
 import { Header } from '@/components/ui/Header'
 import { SafeBox } from '@/components/ui/SafeBox'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 
 import { PostList } from './components/PostList'
 
 export default function TabTwoScreen() {
+  const { localizedStrings } = useLanguage()
   const [searchQuery, setSearchQuery] = useState('')
   return (
     <SafeBox
@@ -25,11 +27,11 @@ export default function TabTwoScreen() {
         headerBackgroundColor={{ dark: '#000000', light: '#FFF' }}
         headerImage={{
           src: require('@/assets/images/blog.jpg'),
-          alt: 'Imagem de um computador',
+          alt: localizedStrings.blogScreen.headerImageAlt,
         }}
       >
         <Text variant="headlineLarge" lightColor="#FFF" darkColor="#FFF">
-          Tudo sobre programação
+          {localizedStrings.blogScreen.title}
         </Text>
       </ParallaxScrollView>
       <Box
@@ -42,7 +44,7 @@ export default function TabTwoScreen() {
         }}
       >
         <Searchbar
-          placeholder="Pesquisar"
+          placeholder={localizedStrings.globals.search}
           onChangeText={setSearchQuery}
           value={searchQuery}
           style={{ marginHorizontal: 10 }}

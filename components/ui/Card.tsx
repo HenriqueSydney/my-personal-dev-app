@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react'
-import { IconButton, Card as PaperCard } from 'react-native-paper'
+import { Card as PaperCard } from 'react-native-paper'
 
 type Props = PropsWithChildren<{
   title?: {
@@ -13,8 +13,8 @@ export function Card({ children, title, actions }: Props) {
   return (
     <PaperCard mode="elevated" style={{ marginBottom: 15 }}>
       {actions && (
-        <PaperCard.Actions>
-          <IconButton icon="chevron-right" />
+        <PaperCard.Actions testID="test-id-card-action">
+          {actions.map((action) => action)}
         </PaperCard.Actions>
       )}
       {title && (

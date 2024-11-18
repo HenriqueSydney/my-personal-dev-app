@@ -2,6 +2,7 @@ import { List } from 'react-native-paper'
 
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 import { day } from '@/utils/dateFormatter'
 
 const EDUCATION = [
@@ -26,13 +27,16 @@ const EDUCATION = [
 ]
 
 export function Education() {
+  const { localizedStrings } = useLanguage()
   return (
     <Box
       darkColor="#0d1117"
       lightColor="#ebebeb"
       style={{ width: '100%', paddingVertical: 15, paddingHorizontal: 10 }}
     >
-      <Text variant="headlineMedium">Education</Text>
+      <Text variant="headlineMedium">
+        {localizedStrings.resumeScreen.educationTitle}
+      </Text>
       <Box
         darkColor="#0d1117"
         lightColor="#ebebeb"

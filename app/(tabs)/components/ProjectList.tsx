@@ -4,6 +4,7 @@ import { FlatList } from 'react-native'
 
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 
 import { ProjectCard } from './ProjectCard'
 
@@ -25,6 +26,7 @@ type GitHubApiRepoListResponse = {
 }
 
 export function ProjectList() {
+  const { localizedStrings } = useLanguage()
   const [projects, setProjects] = useState<IProjects[]>([])
   async function fetchGitHubRepo() {
     try {
@@ -68,7 +70,9 @@ export function ProjectList() {
       lightColor="#ebebeb"
       style={{ width: '100%', paddingVertical: 25, paddingHorizontal: 10 }}
     >
-      <Text variant="headlineMedium">Projetos Relevantes</Text>
+      <Text variant="headlineMedium">
+        {localizedStrings.homeScreen.projectListTitle}
+      </Text>
       <Box
         darkColor="#0d1117"
         lightColor="#ebebeb"

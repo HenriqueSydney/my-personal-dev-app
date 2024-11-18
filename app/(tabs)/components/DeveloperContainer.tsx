@@ -3,8 +3,10 @@ import { Avatar } from 'react-native-paper'
 import { Box } from '@/components/ui/Box'
 import { SocialMedia } from '@/components/ui/SocialMedia'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 
 export function DeveloperContainer() {
+  const { localizedStrings } = useLanguage()
   return (
     <Box
       style={{
@@ -22,7 +24,7 @@ export function DeveloperContainer() {
         }}
       >
         <Text variant="headlineLarge">Henrique Lima</Text>
-        <Text variant="headlineSmall">Web Developer</Text>
+        <Text variant="headlineSmall">{localizedStrings.globals.job}</Text>
       </Box>
       <Box
         style={{
@@ -30,9 +32,7 @@ export function DeveloperContainer() {
         }}
       >
         <Text style={{ textAlign: 'center' }}>
-          Desenvolvedor React, Next, Node, Python, com domínio em em SQL e
-          NoSQL. Adepto a cultura DevOps, com conhecimentos em CI/CD, IaC, K8s e
-          Cloud.
+          {localizedStrings.globals.jobDescription}
         </Text>
 
         <SocialMedia />

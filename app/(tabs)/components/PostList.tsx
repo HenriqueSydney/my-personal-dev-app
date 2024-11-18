@@ -7,6 +7,7 @@ import { Button } from 'react-native-paper'
 import { client } from '@/app/libs/prismic'
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 import { day } from '@/utils/dateFormatter'
 
 import { SlugCard, SlugCardProps } from './SlugCard'
@@ -51,6 +52,7 @@ export function PostList({
   postsPerPage,
   query = undefined,
 }: Props) {
+  const { localizedStrings } = useLanguage()
   const [posts, setPosts] = useState<PostsType[]>([])
   async function fetchPosts() {
     try {
@@ -104,7 +106,11 @@ export function PostList({
         paddingHorizontal: 10,
       }}
     >
-      {mainPage && <Text variant="headlineMedium">Últimos Posts</Text>}
+      {mainPage && (
+        <Text variant="headlineMedium">
+          {localizedStrings.homeScreen.postList.title}
+        </Text>
+      )}
       <Box
         darkColor={mainPage ? undefined : '#0d1117'}
         lightColor={mainPage ? undefined : '#ebebeb'}
@@ -130,7 +136,7 @@ export function PostList({
       {mainPage && (
         <Link href="/blog" asChild>
           <Button icon="post-outline" mode="outlined">
-            Leia mais...
+            {localizedStrings.homeScreen.postList.readMorePostsButtonLabel}...
           </Button>
         </Link>
       )}

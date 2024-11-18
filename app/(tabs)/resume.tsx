@@ -4,6 +4,7 @@ import { Header } from '@/components/ui/Header'
 import { IconWithText } from '@/components/ui/IconWithText'
 import { SafeBox } from '@/components/ui/SafeBox'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 import { day } from '@/utils/dateFormatter'
 
 import { ProjectList } from './components/ProjectList'
@@ -14,6 +15,7 @@ import { LanguageSkills } from './components/resume/LanguageSkills'
 import { SoftSkills } from './components/resume/SoftSkills'
 
 export default function Resume() {
+  const { localizedStrings } = useLanguage()
   return (
     <SafeBox
       style={{
@@ -23,16 +25,16 @@ export default function Resume() {
         paddingTop: 10,
       }}
     >
-      <Header title="Currículo" />
+      <Header title={localizedStrings.globals.resume} />
       <ParallaxScrollView
         headerBackgroundColor={{ dark: '#000000', light: '#FFF' }}
         headerImage={{
           src: require('@/assets/images/curriculo.jpg'),
-          alt: 'Imagem de um computador',
+          alt: localizedStrings.resumeScreen.headerImageAlt,
         }}
       >
         <Text variant="headlineLarge" lightColor="#FFF" darkColor="#FFF">
-          About me
+          {localizedStrings.resumeScreen.title}
         </Text>
       </ParallaxScrollView>
       <Box
@@ -61,7 +63,7 @@ export default function Resume() {
               icon="face-man-shimmer"
               text={day('1989-04-24').fromNow(true)}
             />
-            <IconWithText icon="laptop" text="Software Engineer" />
+            <IconWithText icon="laptop" text={localizedStrings.globals.job} />
           </Box>
         </Box>
         <Box
@@ -75,7 +77,9 @@ export default function Resume() {
             gap: 8,
           }}
         >
-          <Text variant="headlineMedium">Profile</Text>
+          <Text variant="headlineMedium">
+            {localizedStrings.resumeScreen.profileTitle}
+          </Text>
           <Text>
             Desenvolvedor React, Next, Node, Python, com domínio em em SQL e
             NoSQL. Adepto a cultura DevOps, com conhecimentos em CI/CD, IaC, K8s

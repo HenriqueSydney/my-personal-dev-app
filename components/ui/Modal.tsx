@@ -1,7 +1,8 @@
-import { Portal, Modal as PaperModal, Button } from 'react-native-paper'
-import { Text } from './Text'
 import { ReactNode, useState } from 'react'
 import { View } from 'react-native'
+import { Button, Modal as PaperModal, Portal } from 'react-native-paper'
+
+import { Text } from './Text'
 
 type Props = {
   buttonLabel: string
@@ -19,7 +20,6 @@ export function Modal({ buttonLabel, modalTitle, modalContent }: Props) {
     padding: 20,
     margin: 40,
     minHeight: 250,
-    maxHeight: '80%',
   }
   return (
     <>

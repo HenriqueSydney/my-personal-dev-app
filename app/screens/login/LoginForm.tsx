@@ -10,6 +10,7 @@ import { IUser } from '@/app/storage/manageUser'
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
 import { TextInput } from '@/components/ui/TextInput'
+import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
 import { useUser } from '@/hooks/useUser'
 import { findFirstErrorZodMessage } from '@/utils/findFirstErrorZodMessage'
@@ -33,6 +34,7 @@ const loginFormValidationSchema = zod.object({
 export type LoginForm = zod.infer<typeof loginFormValidationSchema>
 
 export function LoginFormContainer() {
+  const { localizedStrings } = useLanguage()
   const navigation = useNavigation()
   const { showToast } = useToast()
 
@@ -41,8 +43,8 @@ export function LoginFormContainer() {
   const loginForm = useForm<LoginForm>({
     resolver: zodResolver(loginFormValidationSchema),
     defaultValues: {
-      email: 'henrique@hotmail.com',
-      password: '12345678',
+      email: '',
+      password: '',
     },
   })
 
@@ -59,13 +61,13 @@ export function LoginFormContainer() {
       const user = await getUserByEmail(data.email)
 
       if (!user) {
-        throw new Error('Credenciais inválidas')
+        throw new Error(localizedStrings.sharedMessages.errors.wrongCredentials)
       }
 
       const passwordHashToCompare = await generateHash(data.password)
 
       if (user.password !== passwordHashToCompare) {
-        throw new Error('Credenciais inválidas')
+        throw new Error(localizedStrings.sharedMessages.errors.wrongCredentials)
       }
 
       const userWithoutPassword: IUser = {
@@ -82,10 +84,7 @@ export function LoginFormContainer() {
       if (error instanceof Error) {
         showToast(error.message, 'error')
       } else {
-        showToast(
-          'Um erro ocorreu ao tentar entrar em sua conta. Tente novamente',
-          'error',
-        )
+        showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
       }
     }
     reset()
@@ -111,7 +110,9 @@ export function LoginFormContainer() {
     >
       <Box style={{ justifyContent: 'space-between', gap: 40 }}>
         <Box style={{ gap: 16 }}>
-          <Text variant="headlineMedium">Entrar</Text>
+          <Text variant="headlineMedium">
+            {localizedStrings.loginScreen.fieldSetTitle}
+          </Text>
 
           <TextInput
             label="E-mail"
@@ -120,7 +121,7 @@ export function LoginFormContainer() {
             textContentType="emailAddress"
           />
           <TextInput
-            label="Senha"
+            label={localizedStrings.loginScreen.passwordLabel}
             control={control}
             name="password"
             secureTextEntry={true}
@@ -128,11 +129,11 @@ export function LoginFormContainer() {
         </Box>
         <Box style={{ gap: 16 }}>
           <Button icon="login" mode="contained" onPress={handleSubmit(onLogin)}>
-            Entrar
+            {localizedStrings.loginScreen.loginButtonLabel}
           </Button>
           <Link href="/screens/signup" asChild>
             <Button icon="account-group" mode="outlined">
-              Cadastre-se
+              {localizedStrings.loginScreen.signUpButtonLabel}
             </Button>
           </Link>
         </Box>

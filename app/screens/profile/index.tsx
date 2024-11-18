@@ -9,6 +9,7 @@ import { SafeBox } from '@/components/ui/SafeBox'
 import { Switch } from '@/components/ui/Switch'
 import { Text } from '@/components/ui/Text'
 import { UserPhoto } from '@/components/ui/UserPhoto'
+import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
 import { useUser } from '@/hooks/useUser'
 
@@ -21,13 +22,20 @@ Notifications.setNotificationHandler({
 })
 
 export default function Profile() {
+  const { localizedStrings } = useLanguage()
   const { user, setUser } = useUser()
   const { showToast } = useToast()
-  const { navigate } = useNavigation()
+  const { goBack, navigate } = useNavigation()
 
   if (!user) {
-    showToast('Usuário não localizado!', 'error')
-    navigate('(tabs)')
+    showToast(localizedStrings.sharedMessages.errors.userNotFound, 'error')
+    goBack()
+  }
+
+  async function handleLogout() {
+    await setUser(null)
+    showToast('Até breve! 😉', 'info')
+    goBack()
   }
 
   async function handleRemoveUser() {
@@ -45,10 +53,10 @@ export default function Profile() {
           },
           trigger: null,
         })
-        navigate('(tabs)')
+        goBack()
       }
     } catch (err) {
-      showToast('Usuário não localizado!', 'error')
+      showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
       console.log(err)
     }
   }
@@ -71,6 +79,11 @@ export default function Profile() {
           marginTop: 25,
         }}
       >
+        <Box style={{ position: 'absolute', top: -30, right: 5 }}>
+          <Button icon="logout" onPress={handleLogout}>
+            {localizedStrings.profile.signOutLabel}
+          </Button>
+        </Box>
         <Box>
           <UserPhoto image={{ uri: user?.photo }} size={180} />
         </Box>
@@ -88,16 +101,20 @@ export default function Profile() {
           }}
         >
           <Box style={{ marginTop: 15, gap: 4 }}>
-            <Text variant="titleMedium">Nome:</Text>
+            <Text variant="titleMedium">
+              {localizedStrings.globals.namePlaceholder}:
+            </Text>
             <Text>{user?.name}</Text>
           </Box>
           <Box style={{ marginTop: 15, gap: 4 }}>
-            <Text variant="titleMedium">Email:</Text>
+            <Text variant="titleMedium">
+              {localizedStrings.globals.emailPlaceholder}:
+            </Text>
             <Text>{user?.email}</Text>
           </Box>
 
           <Switch
-            label="Aceito receber a Newsletter"
+            label={localizedStrings.globals.newsLatterLabel}
             value={user?.newsLetterOption ?? false}
             disabled={false}
           />
@@ -116,10 +133,14 @@ export default function Profile() {
               mode="contained"
               onPress={() => navigate('screens/edit-profile/index')}
             >
-              Editar cadastro
+              {localizedStrings.profile.updateProfileButtonLabel}
             </Button>
-            <Button icon="pencil-lock" mode="outlined" onPress={() => {}}>
-              Alterar senha
+            <Button
+              icon="pencil-lock"
+              mode="outlined"
+              onPress={() => navigate('screens/update-password/index')}
+            >
+              {localizedStrings.profile.updatePasswordLabel}
             </Button>
           </Box>
 
@@ -129,7 +150,7 @@ export default function Profile() {
             textColor="#f87171"
             onPress={handleRemoveUser}
           >
-            Deletar conta
+            {localizedStrings.profile.deleteAccountButtonLabel}
           </Button>
         </Box>
       </Box>

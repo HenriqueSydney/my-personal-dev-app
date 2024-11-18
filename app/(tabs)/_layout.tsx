@@ -4,7 +4,9 @@ import React from 'react'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
+import { useLanguage } from '@/hooks/useLanguage'
 export default function TabLayout() {
+  const { localizedStrings } = useLanguage()
   const colorScheme = useColorScheme()
 
   return (
@@ -29,7 +31,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="resume"
         options={{
-          title: 'Resume',
+          title: localizedStrings.globals.resume,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? 'list' : 'list-outline'}

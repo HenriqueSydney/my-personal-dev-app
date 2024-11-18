@@ -1,5 +1,6 @@
+import { Divider as PaperDivider, DividerProps } from 'react-native-paper'
+
 import { useThemeColor } from '@/hooks/useThemeColor'
-import { DividerProps, Divider as PaperDivider } from 'react-native-paper'
 
 type IProps = DividerProps & {
   lightColor?: string
@@ -13,6 +14,7 @@ export function Divider({ lightColor, darkColor, ...rest }: IProps) {
   )
   return (
     <PaperDivider
+      testID="divider-test-id"
       theme={{
         colors: { primary: backgroundColor, outlineVariant: backgroundColor },
       }}

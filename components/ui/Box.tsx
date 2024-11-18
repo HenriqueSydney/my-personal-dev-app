@@ -1,6 +1,7 @@
-import { useThemeColor } from '@/hooks/useThemeColor'
 import { PropsWithChildren } from 'react'
 import { StyleProp, View, ViewStyle } from 'react-native'
+
+import { useThemeColor } from '@/hooks/useThemeColor'
 
 type Props = PropsWithChildren<{
   lightColor?: string
@@ -13,5 +14,9 @@ export function Box({ style, children, lightColor, darkColor }: Props) {
     { light: lightColor, dark: darkColor },
     'background',
   )
-  return <View style={[{ backgroundColor }, style]}>{children}</View>
+  return (
+    <View style={[{ backgroundColor }, style]} testID="text-id-box">
+      {children}
+    </View>
+  )
 }

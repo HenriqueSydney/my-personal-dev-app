@@ -2,6 +2,7 @@ import { List } from 'react-native-paper'
 
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 import { day } from '@/utils/dateFormatter'
 
 const HISTORY = [
@@ -30,9 +31,12 @@ const HISTORY = [
 ]
 
 export function EmploymentHistory() {
+  const { localizedStrings } = useLanguage()
   return (
     <Box style={{ width: '100%', paddingVertical: 15, paddingHorizontal: 10 }}>
-      <Text variant="headlineMedium">Employment History</Text>
+      <Text variant="headlineMedium">
+        {localizedStrings.resumeScreen.employmentsTitle}
+      </Text>
       {HISTORY.map((history) => (
         <Box key={history.organization} style={{ padding: 5 }}>
           <Text variant="titleMedium">{history.organization}</Text>

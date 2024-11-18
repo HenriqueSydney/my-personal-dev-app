@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
-import { Alert, Linking, View } from 'react-native'
+import { Linking, View } from 'react-native'
 import { Card as PaperCard, Icon } from 'react-native-paper'
 
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
 
 type Props = {
@@ -18,14 +19,14 @@ export function ProjectCard({
   description,
   language,
 }: Props) {
+  const { localizedStrings } = useLanguage()
   const { showToast } = useToast()
   const handlePress = useCallback(async () => {
     const supported = await Linking.canOpenURL(url)
     if (supported) {
       await Linking.openURL(url)
     } else {
-      showToast('Falha ao tentar acessar a URL', 'error')
-      Alert.alert(`Don't know how to open this URL: ${url}`)
+      showToast(localizedStrings.sharedMessages.errors.urlOpeningFails, 'error')
     }
   }, [url])
   return (

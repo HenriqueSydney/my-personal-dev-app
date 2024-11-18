@@ -11,6 +11,7 @@ import { Box } from '@/components/ui/Box'
 import { Header } from '@/components/ui/Header'
 import { SafeBox } from '@/components/ui/SafeBox'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 import { day } from '@/utils/dateFormatter'
 import { extractTextFromPrismic } from '@/utils/extractTextFromPrismic'
 
@@ -27,6 +28,7 @@ type PostProps = {
 }
 
 export default function Post() {
+  const { localizedStrings } = useLanguage()
   const [post, setPost] = useState<PostProps | null>(null)
   const { slug } = useLocalSearchParams() as { slug: string }
 
@@ -113,14 +115,16 @@ export default function Post() {
             />
             <View>
               <Text variant="titleMedium">Henrique Lima</Text>
-              <Text>Software Engineer</Text>
+              <Text>{localizedStrings.globals.job}</Text>
             </View>
           </View>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text>
               {post?.publishDateDistance} | {post?.publishDate}
             </Text>
-            <Text>{post?.timeToRead} min de Leitura</Text>
+            <Text>
+              {post?.timeToRead} {localizedStrings.postScreen.readTime}
+            </Text>
           </View>
         </View>
         <Box style={{ padding: 5 }}>

@@ -3,10 +3,12 @@ import { Box } from '@/components/ui/Box'
 import { Header } from '@/components/ui/Header'
 import { SafeBox } from '@/components/ui/SafeBox'
 import { Text } from '@/components/ui/Text'
+import { useLanguage } from '@/hooks/useLanguage'
 
 import { LoginFormContainer } from './LoginForm'
 
 export default function Login() {
+  const { localizedStrings } = useLanguage()
   return (
     <SafeBox
       style={{
@@ -16,16 +18,19 @@ export default function Login() {
         paddingTop: 10,
       }}
     >
-      <Header title="Entrar" showLoginIcon={false} />
+      <Header
+        title={localizedStrings.loginScreen.header}
+        showLoginIcon={false}
+      />
       <ParallaxScrollView
         headerBackgroundColor={{ dark: '#000000', light: '#FFF' }}
         headerImage={{
           src: require('@/assets/images/blog.jpg'),
-          alt: 'Imagem de um computador',
+          alt: localizedStrings.loginScreen.headerImageAlt,
         }}
       >
         <Text variant="headlineLarge" lightColor="#FFF" darkColor="#FFF">
-          Entrar com sua conta
+          {localizedStrings.loginScreen.title}
         </Text>
       </ParallaxScrollView>
       <Box

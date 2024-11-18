@@ -1,5 +1,6 @@
-import { Box } from '@/components/ui/Box'
 import { IconButton } from 'react-native-paper'
+
+import { Box } from '@/components/ui/Box'
 
 export function SocialMedia() {
   return (

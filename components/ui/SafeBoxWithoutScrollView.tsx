@@ -1,7 +1,9 @@
-import { useThemeColor } from '@/hooks/useThemeColor'
 import { PropsWithChildren } from 'react'
 import { StyleProp, View, ViewStyle } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { useThemeColor } from '@/hooks/useThemeColor'
+
 import { Footer } from './Footer'
 
 type Props = PropsWithChildren<{

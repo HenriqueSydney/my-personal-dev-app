@@ -38,8 +38,9 @@
           "backgroundColor": "#ffffff"
         }
       ],
+      ["expo-localization"],
       [
-      "expo-camera",
+        "expo-camera",
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
@@ -64,8 +65,8 @@
           ]
         }
       ],
-      "expo-font"
-      
+      "expo-font",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

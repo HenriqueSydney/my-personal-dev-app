@@ -2,6 +2,7 @@ import { Link, useNavigation } from 'expo-router'
 import { View } from 'react-native'
 import { Appbar, Avatar } from 'react-native-paper'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { useUser } from '@/hooks/useUser'
 
@@ -19,7 +20,7 @@ export function Header({
   showLoginIcon = true,
 }: Props) {
   const { user } = useUser()
-
+  const { localizedStrings } = useLanguage()
   const backgroundColor = useThemeColor(
     { light: '#f7f6f6', dark: '#131922' },
     'background',
@@ -46,11 +47,19 @@ export function Header({
         ]}
         elevated={true}
       >
-        {title && <Appbar.BackAction onPress={() => goBack()} />}
-        {<Appbar.Content title={title} />}
+        {title && (
+          <>
+            <Appbar.BackAction
+              testID="test-id-header-back-button"
+              onPress={() => goBack()}
+            />
+          </>
+        )}
+        <Appbar.Content title={title} />
         {!user && showLoginIcon && (
           <Appbar.Action
             icon="login"
+            testID="test-id-header-login-button"
             onPress={() => navigate('screens/login/index')}
           />
         )}
@@ -58,12 +67,18 @@ export function Header({
         {user && (
           <View style={{ flexDirection: 'row', gap: 8 }}>
             <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-              <Text variant="titleSmall">Bem vindo,</Text>
+              <Text variant="titleSmall">
+                {localizedStrings.globals.welcome},
+              </Text>
               <Text>{user.name.split(' ')[0]}</Text>
             </View>
             <Link href="/screens/profile">
               <View>
-                <Avatar.Image source={{ uri: user.photo }} size={40} />
+                <Avatar.Image
+                  testID="avatar-image"
+                  source={{ uri: user.photo }}
+                  size={40}
+                />
               </View>
             </Link>
           </View>

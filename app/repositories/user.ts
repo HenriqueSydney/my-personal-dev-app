@@ -1,4 +1,5 @@
 import { getDatabase } from '../libs/sqlite'
+import { getUser } from '../storage/getUser'
 import { DBUser, IUser } from '../storage/manageUser'
 
 type IUserCreateData = {
@@ -14,6 +15,11 @@ type IUserUpdateData = {
   name?: string
   photo?: string
   newsLetterOption?: boolean
+}
+
+interface IUserPasswordUpdate {
+  newHashedPassword: string
+  user?: IUser | null
 }
 
 interface IUserUpdate {
@@ -53,7 +59,7 @@ export async function userRepository() {
 
   async function updateUserByEmail({ data, user }: IUserUpdate) {
     if (!user) {
-      user = await getUserByEmail(data.email)
+      user = await getUser()
     }
 
     if (!user) {
@@ -65,11 +71,32 @@ export async function userRepository() {
     // }
     // newsLetter = $newsLetter,
     await db.runAsync(
-      'UPDATE users SET name = $name, photo = $photo  WHERE id = $id',
+      'UPDATE users SET name = $name, photo = $photo  WHERE email = $email',
       {
         $name: data.name ?? user.name,
         // $newsLetter: newsLatterOption,
         $photo: data.photo ?? user.photo,
+        $email: user.email,
+      },
+    )
+  }
+
+  async function updateUserPasswordByEmail({
+    newHashedPassword,
+    user,
+  }: IUserPasswordUpdate) {
+    if (!user) {
+      user = await getUser()
+    }
+
+    if (!user) {
+      throw new Error('Usuário não encontrado')
+    }
+
+    await db.runAsync(
+      'UPDATE users SET password = $newPassword  WHERE email = $email',
+      {
+        $newPassword: newHashedPassword,
         $email: user.email,
       },
     )
@@ -85,6 +112,7 @@ export async function userRepository() {
     getUserByEmail,
     deleteUserByEmail,
     updateUserByEmail,
+    updateUserPasswordByEmail,
     createUser,
   }
 }
