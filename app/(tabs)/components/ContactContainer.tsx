@@ -9,6 +9,7 @@ import { Text } from '@/components/ui/Text'
 import { TextInput } from '@/components/ui/TextInput'
 import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
+import { useUser } from '@/hooks/useUser'
 import { findFirstErrorZodMessage } from '@/utils/findFirstErrorZodMessage'
 
 const concatFormValidationSchema = zod.object({
@@ -44,13 +45,14 @@ export type ContactForm = zod.infer<typeof concatFormValidationSchema>
 export function ContactContainer() {
   const { localizedStrings } = useLanguage()
   const { showToast } = useToast()
+  const { user } = useUser()
 
   const contactForm = useForm<ContactForm>({
     resolver: zodResolver(concatFormValidationSchema),
     defaultValues: {
-      email: '',
+      email: user?.email ?? '',
       text: '',
-      name: '',
+      name: user?.name ?? '',
     },
   })
 
@@ -106,8 +108,10 @@ export function ContactContainer() {
       />
       <TextInput
         label={localizedStrings.globals.messagePlaceholder}
-        numberOfLines={5}
+        numberOfLines={10}
+        multiline={true}
         control={control}
+        style={{ minHeight: 120 }}
         name="text"
       />
       <Button

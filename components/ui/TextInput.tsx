@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Control, useController } from 'react-hook-form'
-import { TextInput as PaperTextInput, TextInputProps } from 'react-native-paper'
-import { Text } from './Text'
 import { View } from 'react-native'
+import { TextInput as PaperTextInput, TextInputProps } from 'react-native-paper'
+
+import { Text } from './Text'
 
 type Props = TextInputProps & {
   label: string
@@ -10,7 +11,7 @@ type Props = TextInputProps & {
   control: Control<any>
 }
 
-export function TextInput({ label, name, control, ...rest }: Props) {
+export function TextInput({ label, name, control, style, ...rest }: Props) {
   const {
     field,
     formState: { errors },
@@ -32,7 +33,9 @@ export function TextInput({ label, name, control, ...rest }: Props) {
         value={field.value}
         onChangeText={field.onChange}
         style={
-          errorMessage ? { borderColor: '#ad283a', borderWidth: 1 } : undefined
+          errorMessage
+            ? [{ borderColor: '#ad283a', borderWidth: 1 }, style]
+            : style
         }
         {...rest}
       />

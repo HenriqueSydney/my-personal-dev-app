@@ -9,8 +9,8 @@ const HARD_SKILLS = [
     items: ['JavaScript', 'TypeScript', 'PHP', 'Python'],
   },
   {
-    topic: 'Frameworks',
-    items: ['React', 'Next.js', 'React Native'],
+    topic: 'Frameworks e Plataformas',
+    items: ['React', 'NextJS', 'React Native', 'NodeJS'],
   },
   {
     topic: 'Banco de Dados',

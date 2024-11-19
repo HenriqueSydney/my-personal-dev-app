@@ -17,6 +17,15 @@ type IUserUpdateData = {
   newsLetterOption?: boolean
 }
 
+export interface IUserSelectData {
+  id: number
+  name: string
+  email: string
+  photo: string
+  password: string
+  newsLetterOption: boolean
+}
+
 interface IUserPasswordUpdate {
   newHashedPassword: string
   user?: IUser | null
@@ -29,13 +38,24 @@ interface IUserUpdate {
 
 export async function userRepository() {
   const db = await getDatabase()
-  async function getUserByEmail(email: string) {
-    const user = await db.getFirstAsync<DBUser>(
-      'SELECT name, password, email, photo FROM users WHERE email = $email;',
+  async function getUserByEmail(
+    email: string,
+  ): Promise<IUserSelectData | null> {
+    const dbUser = await db.getFirstAsync<DBUser>(
+      'SELECT name, password, email, photo, newsLetter FROM users WHERE email = $email;',
       { $email: email },
     )
 
-    return user
+    if (dbUser) {
+      const user = {
+        ...dbUser,
+        newsLetterOption: dbUser.newsLetter === 1,
+      }
+
+      return user
+    }
+
+    return null
   }
 
   async function createUser(data: IUserCreateData) {
@@ -45,12 +65,14 @@ export async function userRepository() {
       throw new Error('Usuário já existe')
     }
 
+    const newsLatterOption = data.newsLetterOption ? 1 : 0
+
     await db.runAsync(
-      'INSERT INTO users (name, password, email, photo) values ($name, $password, $email, $photo);',
+      'INSERT INTO users (name, password, email, photo, newsLetter) values ($name, $password, $email, $photo, $newsLetter);',
       {
         $name: data.name,
         $password: data.passwordHash,
-        // $newsLetter: newsLatterOption,
+        $newsLetter: newsLatterOption,
         $email: data.email,
         $photo: data.photo,
       },
@@ -65,16 +87,16 @@ export async function userRepository() {
     if (!user) {
       throw new Error('Usuário não encontrado')
     }
-    // let newsLatterOption = user.newsLetterOption ? 1 : 0
-    // if (data.newsLetterOption) {
-    //   newsLatterOption = data.newsLetterOption ? 1 : 0
-    // }
-    // newsLetter = $newsLetter,
+    let newsLatterOption = user.newsLetterOption ? 1 : 0
+    if (data.newsLetterOption) {
+      newsLatterOption = data.newsLetterOption ? 1 : 0
+    }
+
     await db.runAsync(
-      'UPDATE users SET name = $name, photo = $photo  WHERE email = $email',
+      'UPDATE users SET name = $name, photo = $photo, newsLetter = $newsLetter  WHERE email = $email',
       {
         $name: data.name ?? user.name,
-        // $newsLetter: newsLatterOption,
+        $newsLetter: newsLatterOption,
         $photo: data.photo ?? user.photo,
         $email: user.email,
       },

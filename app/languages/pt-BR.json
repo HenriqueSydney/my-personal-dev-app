@@ -38,7 +38,9 @@
         "header": "Cadastre-se",
         "passwordLabel": "Senha",
         "confirmPasswordLabel": "Confirmação da senha",
-        "signUpButtonLabel": "Cadastrar"
+        "signUpButtonLabel": "Cadastrar",
+        "selectPictureMenuOptionTitle": "Selecionar uma foto",
+        "takePictureMenuOptionTitle": "Tirar uma foto"
     },
     "profile": {
         "signOutLabel": "Sair",
@@ -78,6 +80,16 @@
         "wrongCredentials": "Credenciais inválidas",
         "urlOpeningFails": "Falha ao tentar acessar a URL"
        }      
+    },
+    "cameraApi": {
+        "noPermission":"Usuário não autorizou uso da Câmera",
+        "askPermissionTitle": "Autorizar uso da Câmera",
+        "askPermissionMessage": "Precisamos de autorização para podermos utilizar a câmera de seu dispositivo",
+        "authorizedButtonLabel": "Autorizar",
+        "captureError": "Erro ao capturar a foto",
+        "captureSuccessMessage": "Foto capturada com sucesso!",
+        "retakePictureButtonLabel": "Tirar uma nova foto",
+        "usePictureButtonLabel": "Utilizar a foto"
     }
 }
 

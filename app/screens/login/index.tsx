@@ -9,6 +9,7 @@ import { LoginFormContainer } from './LoginForm'
 
 export default function Login() {
   const { localizedStrings } = useLanguage()
+
   return (
     <SafeBox
       style={{

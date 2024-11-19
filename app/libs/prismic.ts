@@ -5,9 +5,7 @@ export const repositoryName = 'personal-henrique'
 
 export const client = prismic.createClient(repositoryName, {
   // If your repository is private, add an access token
-  accessToken:
-    'MC5aekFBZUJBQUFDY0EyYnZ1.YnUC77-9Du-_vW5C77-9RzHvv73vv73vv73vv71pMQ_vv73vv73vv71fQ--_ve-_ve-_vSbvv70PNkTvv70',
-
+  // accessToken: ''
   // This defines how you will structure URL paths in your project.
   // Update the types to match the custom types in your project, and edit
   // the paths to match the routing in your project.

@@ -16,13 +16,13 @@ const EDUCATION = [
     organization: 'System Analysis and Development - CEUB University',
     startedAt: '2023-10-01',
     endedAt: '',
-    level: `Specialization`,
+    level: `Associate's Degree`,
   },
   {
     organization: 'Human Resources - CEUB University',
     startedAt: '2014-04-04',
     endedAt: '2015-05-09',
-    level: `Associate's Degree`,
+    level: `Specialization`,
   },
 ]
 

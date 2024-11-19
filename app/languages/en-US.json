@@ -38,7 +38,9 @@
         "header": "Sign Up",
         "passwordLabel": "Password",
         "confirmPasswordLabel": "Confirm Password",
-        "signUpButtonLabel": "Register"
+        "signUpButtonLabel": "Register",
+        "selectPictureMenuOptionTitle": "Select a photo",
+        "takePictureMenuOptionTitle": "Take a picture"
     },
     "profile": {
         "signOutLabel": "Sign Out",
@@ -78,5 +80,15 @@
             "wrongCredentials": "Invalid credentials",
             "urlOpeningFails": "Failed to open the URL"
         }
+    },
+    "cameraApi": {
+        "noPermission": "User did not authorize the use of the Camera",
+        "askPermissionTitle": "Authorize the use of the Camera",
+        "askPermissionMessage": "We need your permission to use the camera of your device",
+        "authorizedButtonLabel": "Authorize",
+        "captureError": "Error capturing the photo",
+        "captureSuccessMessage": "Photo successfully captured!",
+        "retakePictureButtonLabel": "Take a new photo",
+        "usePictureButtonLabel": "Use the photo"
     }
 }

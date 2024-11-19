@@ -1,9 +1,13 @@
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera'
 import { useRef, useState } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import { Button, IconButton, Portal } from 'react-native-paper'
+import { Image, StyleSheet, View } from 'react-native'
+import { Button, IconButton, Modal, Portal } from 'react-native-paper'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { useToast } from '@/hooks/useToast'
+
+import { Divider } from '../ui/Divider'
+import { Text } from '../ui/Text'
 
 type Props = {
   permittedFacingDirections?: 'back' | 'front' | 'all'
@@ -20,6 +24,7 @@ export default function CameraApi({
   setPhoto,
   photo,
 }: Props) {
+  const { localizedStrings } = useLanguage()
   const defaultFacingDirection =
     permittedFacingDirections === 'all' ? 'back' : permittedFacingDirections
   const [facing, setFacing] = useState<CameraType>(defaultFacingDirection)
@@ -27,26 +32,45 @@ export default function CameraApi({
   const { showToast } = useToast()
   const cameraRef = useRef<CameraView | null>(null)
 
-  if (!isCameraOpen) {
+  if (!permission || !isCameraOpen) {
     return <View />
-  }
-
-  if (!permission) {
-    return (
-      <View>
-        <Text>Usuário não autorizou uso da Câmera</Text>
-      </View>
-    )
   }
 
   if (!permission.granted) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.message}>
-          We need your permission to show the camera
-        </Text>
-        <Button onPress={requestPermission}>Autorizar</Button>
-      </View>
+      <Portal>
+        <Modal
+          visible={isCameraOpen}
+          onDismiss={() => setIsCameraOpen(false)}
+          contentContainerStyle={{
+            backgroundColor: 'white',
+            padding: 20,
+            margin: 40,
+            minHeight: 250,
+          }}
+          dismissable={true}
+        >
+          <View
+            style={{
+              width: '100%',
+              padding: 5,
+              height: 200,
+              justifyContent: 'space-between',
+            }}
+          >
+            <View style={{ gap: 5 }}>
+              <Text variant="titleMedium" style={{ marginLeft: 10 }}>
+                {localizedStrings.cameraApi.askPermissionTitle}
+              </Text>
+              <Divider />
+            </View>
+            <Text>{localizedStrings.cameraApi.askPermissionMessage}</Text>
+            <Button mode="contained" onPress={requestPermission}>
+              {localizedStrings.cameraApi.authorizedButtonLabel}
+            </Button>
+          </View>
+        </Modal>
+      </Portal>
     )
   }
 
@@ -63,13 +87,13 @@ export default function CameraApi({
         }
       }
     } catch (error) {
-      showToast('Erro ao capturar a foto', 'error')
+      showToast(localizedStrings.cameraApi.captureError, 'error')
     }
   }
 
   function confirmPicture() {
     setIsCameraOpen(false)
-    showToast('Foto capturada com sucesso!', 'success')
+    showToast(localizedStrings.cameraApi.captureSuccessMessage, 'success')
   }
 
   return (
@@ -82,7 +106,7 @@ export default function CameraApi({
               mode="outlined"
               onPress={() => setPhoto(null)}
             >
-              Tirar uma nova foto
+              {localizedStrings.cameraApi.retakePictureButtonLabel}
             </Button>
             <Image source={{ uri: photo }} style={styles.previewImage} />
             <Button
@@ -90,7 +114,7 @@ export default function CameraApi({
               mode="contained"
               onPress={confirmPicture}
             >
-              Utilizar a foto
+              {localizedStrings.cameraApi.usePictureButtonLabel}
             </Button>
           </View>
         ) : (

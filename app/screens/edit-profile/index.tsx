@@ -9,8 +9,10 @@ import { Button, IconButton } from 'react-native-paper'
 import * as zod from 'zod'
 
 import { userRepository } from '@/app/repositories/user'
+import CameraApi from '@/components/apiComponents/CameraApi'
 import { Box } from '@/components/ui/Box'
 import { Header } from '@/components/ui/Header'
+import Menu from '@/components/ui/Menu'
 import { SafeBox } from '@/components/ui/SafeBox'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Switch } from '@/components/ui/Switch'
@@ -43,7 +45,9 @@ export default function Profile() {
   const { user, setUser } = useUser()
   const { showToast } = useToast()
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
-  const [userPhoto, setUserPhoto] = useState<string | null>(null)
+  const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const [isCameraOpen, setIsCameraOpen] = useState(false)
+  const [userPhoto, setUserPhoto] = useState<string | null>(user?.photo ?? null)
   const { goBack } = useNavigation()
 
   if (!user) {
@@ -55,7 +59,7 @@ export default function Profile() {
     resolver: zodResolver(signUpFormValidationSchema),
     defaultValues: {
       name: user?.name,
-      newsLetter: true,
+      newsLetter: user?.newsLetterOption ?? false,
     },
   })
 
@@ -68,7 +72,7 @@ export default function Profile() {
     }
     try {
       const { updateUserByEmail } = await userRepository()
-      if (userPhoto) {
+      if (userPhoto && userPhoto !== user?.photo) {
         const fileName = userPhoto.split('/').pop()
         const pathToAppUserPhoto = `${FileSystem.documentDirectory}${fileName}`
 
@@ -105,6 +109,7 @@ export default function Profile() {
 
         const updatedUser = Object.assign(user, {
           name: data.name,
+          newsLetterOption: data.newsLetter,
         })
         await setUser(updatedUser)
       }
@@ -146,6 +151,15 @@ export default function Profile() {
     }
   }
 
+  function handleOpenPhotoSelectionMenu() {
+    setIsMenuVisible(true)
+  }
+
+  function handleOpenCamera() {
+    setIsCameraOpen(true)
+    setIsMenuVisible(false)
+  }
+
   return (
     <SafeBox
       style={{
@@ -166,15 +180,43 @@ export default function Profile() {
           marginTop: 25,
         }}
       >
+        <CameraApi
+          permittedFacingDirections="front"
+          isCameraOpen={isCameraOpen}
+          setIsCameraOpen={setIsCameraOpen}
+          setPhoto={setUserPhoto}
+          photo={userPhoto}
+        />
         {photoIsLoading && <Skeleton />}
         {!photoIsLoading && (
           <Box>
-            <UserPhoto image={{ uri: user?.photo }} size={180} />
+            <UserPhoto image={{ uri: userPhoto ?? undefined }} size={180} />
             <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-              <IconButton
-                icon="account-edit"
-                onPress={handleUserPhotoSelect}
-                mode="contained"
+              <Menu
+                anchor={
+                  <IconButton
+                    icon="camera-plus-outline"
+                    onPress={handleOpenPhotoSelectionMenu}
+                    mode="contained"
+                  />
+                }
+                isVisible={isMenuVisible}
+                toggleVisibility={setIsMenuVisible}
+                menuItens={[
+                  {
+                    title:
+                      localizedStrings.signUpScreen
+                        .selectPictureMenuOptionTitle,
+                    icon: 'folder-image',
+                    onPressFn: handleUserPhotoSelect,
+                  },
+                  {
+                    title:
+                      localizedStrings.signUpScreen.takePictureMenuOptionTitle,
+                    icon: 'camera-plus',
+                    onPressFn: handleOpenCamera,
+                  },
+                ]}
               />
             </View>
           </Box>

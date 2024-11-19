@@ -14,12 +14,12 @@ const HISTORY = [
       {
         title: 'Tech Lead',
         description:
-          'Responsável pela gestão de equipe de desenvolvimento de projetos de Gestão de Pessoas, desde junho/2020',
+          'Responsável pela gestão de equipe de desenvolvimento de projetos de TI, para área de Gestão de Pessoas, desde junho/2020',
       },
       {
         title: 'Desenvolvimento de sistema',
         description:
-          'Responsável pela análise de requisitos, implementação de funcionalidades, modelagem de banco de dados e implementação de soluções.',
+          'Responsável pela análise de requisitos, desenvolvimento de funcionalidades, modelagem de banco de dados e implementação de soluções.',
       },
       {
         title: 'Implementação de soluções',

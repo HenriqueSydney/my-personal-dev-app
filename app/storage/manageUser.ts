@@ -13,7 +13,7 @@ export interface DBUser {
   name: string
   email: string
   photo: string
-  newsLetterOption: boolean
+  newsLetter: number
   password: string
 }
 

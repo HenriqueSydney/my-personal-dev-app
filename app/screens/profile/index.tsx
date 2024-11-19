@@ -116,7 +116,7 @@ export default function Profile() {
           <Switch
             label={localizedStrings.globals.newsLatterLabel}
             value={user?.newsLetterOption ?? false}
-            disabled={false}
+            disabled={true}
           />
         </Box>
         <Box

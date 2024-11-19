@@ -26,6 +26,7 @@ export default function PhotoSelectionArea({ userPhoto, setUserPhoto }: Props) {
 
   async function handleUserPhotoSelect() {
     setPhotoIsLoading(true)
+    setIsMenuVisible(false)
     try {
       const photoSelected = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -58,6 +59,11 @@ export default function PhotoSelectionArea({ userPhoto, setUserPhoto }: Props) {
     setIsMenuVisible(true)
   }
 
+  function handleOpenCamera() {
+    setIsCameraOpen(true)
+    setIsMenuVisible(false)
+  }
+
   return (
     <Box>
       <CameraApi
@@ -80,10 +86,31 @@ export default function PhotoSelectionArea({ userPhoto, setUserPhoto }: Props) {
             <UserPhoto image={{ uri: userPhoto }} size={180} />
 
             <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-              <IconButton
-                icon="camera-plus"
-                onPress={handleOpenPhotoSelectionMenu}
-                mode="contained"
+              <Menu
+                anchor={
+                  <IconButton
+                    icon="camera-plus-outline"
+                    onPress={handleOpenPhotoSelectionMenu}
+                    mode="contained"
+                  />
+                }
+                isVisible={isMenuVisible}
+                toggleVisibility={setIsMenuVisible}
+                menuItens={[
+                  {
+                    title:
+                      localizedStrings.signUpScreen
+                        .selectPictureMenuOptionTitle,
+                    icon: 'folder-image',
+                    onPressFn: handleUserPhotoSelect,
+                  },
+                  {
+                    title:
+                      localizedStrings.signUpScreen.takePictureMenuOptionTitle,
+                    icon: 'camera-plus',
+                    onPressFn: handleOpenCamera,
+                  },
+                ]}
               />
             </View>
           </Box>
@@ -113,14 +140,17 @@ export default function PhotoSelectionArea({ userPhoto, setUserPhoto }: Props) {
                 toggleVisibility={setIsMenuVisible}
                 menuItens={[
                   {
-                    title: 'Selecionar Photo',
+                    title:
+                      localizedStrings.signUpScreen
+                        .selectPictureMenuOptionTitle,
                     icon: 'folder-image',
                     onPressFn: handleUserPhotoSelect,
                   },
                   {
-                    title: 'Tirar uma foto',
+                    title:
+                      localizedStrings.signUpScreen.takePictureMenuOptionTitle,
                     icon: 'camera-plus',
-                    onPressFn: () => setIsCameraOpen(true),
+                    onPressFn: handleOpenCamera,
                   },
                 ]}
               />

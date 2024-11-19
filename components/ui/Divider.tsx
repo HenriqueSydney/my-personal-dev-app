@@ -10,7 +10,7 @@ type IProps = DividerProps & {
 export function Divider({ lightColor, darkColor, ...rest }: IProps) {
   const backgroundColor = useThemeColor(
     { light: darkColor, dark: lightColor },
-    'background',
+    'tint',
   )
   return (
     <PaperDivider
@@ -18,7 +18,10 @@ export function Divider({ lightColor, darkColor, ...rest }: IProps) {
       theme={{
         colors: { primary: backgroundColor, outlineVariant: backgroundColor },
       }}
-      style={{ borderColor: backgroundColor, backgroundColor }}
+      style={{
+        borderColor: backgroundColor,
+        backgroundColor,
+      }}
       {...rest}
     />
   )

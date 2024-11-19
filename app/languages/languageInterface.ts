@@ -39,6 +39,8 @@ export interface Translations {
     passwordLabel: string
     confirmPasswordLabel: string
     signUpButtonLabel: string
+    selectPictureMenuOptionTitle: string
+    takePictureMenuOptionTitle: string
   }
   profile: {
     signOutLabel: string
@@ -78,5 +80,15 @@ export interface Translations {
       wrongCredentials: string
       urlOpeningFails: string
     }
+  }
+  cameraApi: {
+    noPermission: string
+    askPermissionTitle: string
+    askPermissionMessage: string
+    authorizedButtonLabel: string
+    captureError: string
+    captureSuccessMessage: string
+    retakePictureButtonLabel: string
+    usePictureButtonLabel: string
   }
 }

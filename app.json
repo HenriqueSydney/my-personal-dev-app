@@ -20,7 +20,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.henriquelimadev.mypersonaldevapp"
     },
     "web": {
       "bundler": "metro",
@@ -38,7 +43,9 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      ["expo-localization"],
+      [
+        "expo-localization"
+      ],
       [
         "expo-camera",
         {
@@ -70,6 +77,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d17d5aab-0152-4114-a5cb-31df854bee12"
+      }
     }
   }
 }
