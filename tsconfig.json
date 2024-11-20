@@ -6,7 +6,7 @@
     "target": "es2020", // Garanta compatibilidade com o ES2020 ou superior
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ]
     }
   },

@@ -1,0 +1,101 @@
+{
+    "globals": {
+        "welcome": "Bem vindo",
+        "job": "Engenheiro de Software",
+        "jobDescription": " Desenvolvedor React, Next, Node, Python, com domínio em em SQL e NoSQL. Adepto a cultura DevOps, com conhecimentos em CI/CD, IaC, K8s e Cloud.",
+        "resume": "Currículo",
+        "year": "ano",
+        "profile": "perfil",
+        "search": "Pesquisar",
+        "namePlaceholder": "Nome",
+        "emailPlaceholder": "E-mail",
+        "messagePlaceholder": "Escreva sua mensagem",
+        "sendButtonLabel": "Enviar",
+        "newsLatterLabel": "Aceito receber a Newsletter",
+        "userImageAlt": "Foto do usuário"
+    },
+    "notFound": {
+        "notFoundMessage": "Opss... Estou constrangido de ter te trazido até aqui. Volte a tela ou vá para pagina inicial",
+        "goToHomePage": "Ir para página inicial"
+    },
+    "homeScreen": {
+        "projectListTitle": "Projetos Relevantes",
+        "postList": {
+            "title": "Últimos Posts",
+            "readMorePostsButtonLabel": "Leia mais"
+        },
+        "contactContainer": {
+            "title": "Aberto a oportunidades",
+            "contactEmailPlaceholder": "E-mail para contato",
+            "messageSendSuccessMessage": "Mensagem enviada com sucesso"
+        }     
+    },
+    "loginScreen": {
+        "header": "Entrar",
+        "title": "Entrar com sua conta",
+        "headerImageAlt": "Imagem de um computador",
+        "fieldSetTitle": "Entrar",
+        "passwordLabel": "Senha",
+        "loginButtonLabel": "Entrar",
+        "signUpButtonLabel": "Cadastre-se"        
+    },
+    "signUpScreen": {
+        "header": "Cadastre-se",
+        "passwordLabel": "Senha",
+        "confirmPasswordLabel": "Confirmação da senha",
+        "signUpButtonLabel": "Cadastrar",
+        "selectPictureMenuOptionTitle": "Selecionar uma foto",
+        "takePictureMenuOptionTitle": "Tirar uma foto"
+    },
+    "profile": {
+        "signOutLabel": "Sair",
+        "updateProfileButtonLabel": "Atualizar cadastro",        
+        "deleteAccountButtonLabel": "Deletar conta",
+        "changePasswordLabel": "Alterar a senha",
+        "oldPasswordLabel": "Senha atual",
+        "newPasswordLabel": "Nova senha",
+        "confirmPasswordLabel": "Confirmação nova senha",
+        "updatePasswordLabel": "Atualizar senha",
+        "updatePasswordSuccessMessage": "Senha atualizada com sucesso",
+        "updateProfileSuccessMessage": "Perfil atualizado com sucesso"
+    },
+    "resumeScreen": {
+        "title": "Quem sou",
+        "headerImageAlt": "Imagem do desenvolvedor",
+        "profileTitle":  "Perfil",
+        "employmentsTitle":  "Histórico profissional",
+        "educationTitle":  "Histórico acadêmico",
+        "languageFluencyTitle":  "Domínio de Idioma"
+    },
+    "blogScreen": {
+        "title": "Tudo sobre programação",
+        "headerImageAlt": "Imagem de um computador"
+    },
+    "postScreen": {
+        "readTime": "min. de leitura"
+    },
+    "sharedMessages": {
+       "missMatchPasswords": "A confirmação da senha deve ser igual à senha",
+       "photoSelectionCanceled": "Usuário cancelou a seleção da foto",
+       "askForPhotoSelection": "Por favor, selecione uma foto",
+       "errors": {
+        "userAlreadyExists": "Usuário já existe",
+        "genericError": "Um erro aconteceu. Tente novamente",
+        "userNotFound": "Usuário não localizado!",
+        "wrongCredentials": "Credenciais inválidas",
+        "urlOpeningFails": "Falha ao tentar acessar a URL"
+       }      
+    },
+    "cameraApi": {
+        "noPermission":"Usuário não autorizou uso da Câmera",
+        "askPermissionTitle": "Autorizar uso da Câmera",
+        "askPermissionMessage": "Precisamos de autorização para podermos utilizar a câmera de seu dispositivo",
+        "authorizedButtonLabel": "Autorizar",
+        "captureError": "Erro ao capturar a foto",
+        "captureSuccessMessage": "Foto capturada com sucesso!",
+        "retakePictureButtonLabel": "Tirar uma nova foto",
+        "usePictureButtonLabel": "Utilizar a foto"
+    }
+}
+
+  

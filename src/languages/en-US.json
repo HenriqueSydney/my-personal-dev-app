@@ -1,0 +1,99 @@
+{
+    "globals": {
+        "welcome": "Welcome",
+        "job": "Software Engineer",
+        "jobDescription": "React, Next, Node, Python Developer, with expertise in SQL and NoSQL. Advocate for DevOps culture, with knowledge in CI/CD, IaC, K8s, and Cloud.",
+        "resume": "Resume",
+        "year": "year",
+        "profile": "profile",
+        "search": "Search",
+        "namePlaceholder": "Name",
+        "emailPlaceholder": "E-mail",
+        "messagePlaceholder": "Write your message",
+        "sendButtonLabel": "Send",
+        "newsLatterLabel": "I agree to receive the Newsletter",
+        "userImageAlt": "User photo"
+    },
+    "notFound": {
+        "notFoundMessage": "Oops... I'm embarrassed to have brought you here. Go back to the previous screen or head to the homepage.",
+        "goToHomePage": "Go to the homepage"
+    },
+    "homeScreen": {
+        "projectListTitle": "Relevant Projects",
+        "postList": {
+            "title": "Latest Posts",
+            "readMorePostsButtonLabel": "Read more"
+        },
+        "contactContainer": {
+            "title": "Open to opportunities",
+            "contactEmailPlaceholder": "E-mail for contact",
+            "messageSendSuccessMessage": "Message successfully sent"
+        }     
+    },
+    "loginScreen": {
+        "header": "Log In",
+        "title": "Log in to your account",
+        "headerImageAlt": "Image of a computer",
+        "fieldSetTitle": "Log In",
+        "passwordLabel": "Password",
+        "loginButtonLabel": "Log In",
+        "signUpButtonLabel": "Sign Up"        
+    },
+    "signUpScreen": {
+        "header": "Sign Up",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "signUpButtonLabel": "Register",
+        "selectPictureMenuOptionTitle": "Select a photo",
+        "takePictureMenuOptionTitle": "Take a picture"
+    },
+    "profile": {
+        "signOutLabel": "Sign Out",
+        "updateProfileButtonLabel": "Update Profile",        
+        "deleteAccountButtonLabel": "Delete Account",
+        "changePasswordLabel": "Change Password",
+        "oldPasswordLabel": "Current Password",
+        "newPasswordLabel": "New Password",
+        "confirmPasswordLabel": "Confirm New Password",
+        "updatePasswordLabel": "Update Password",
+        "updatePasswordSuccessMessage": "Password successfully updated",
+        "updateProfileSuccessMessage": "Profile successfully updated"
+    },
+    "resumeScreen": {
+        "title": "About Me",
+        "headerImageAlt": "Image of the developer",
+        "profileTitle": "Profile",
+        "employmentsTitle": "Work History",
+        "educationTitle": "Academic History",
+        "languageFluencyTitle": "Language Proficiency"
+    },
+    "blogScreen": {
+        "title": "All about Programming",
+        "headerImageAlt": "Image of a computer"
+    },
+    "postScreen": {
+        "readTime": "min. read"
+    },
+    "sharedMessages": {
+        "missMatchPasswords": "The password confirmation must match the password",
+        "photoSelectionCanceled": "User canceled the photo selection",
+        "askForPhotoSelection": "Please select a photo",
+        "errors": {
+            "userAlreadyExists": "User already exists",
+            "genericError": "An error occurred. Please try again",
+            "userNotFound": "User not found!",
+            "wrongCredentials": "Invalid credentials",
+            "urlOpeningFails": "Failed to open the URL"
+        }
+    },
+    "cameraApi": {
+        "noPermission": "User did not authorize the use of the Camera",
+        "askPermissionTitle": "Authorize the use of the Camera",
+        "askPermissionMessage": "We need your permission to use the camera of your device",
+        "authorizedButtonLabel": "Authorize",
+        "captureError": "Error capturing the photo",
+        "captureSuccessMessage": "Photo successfully captured!",
+        "retakePictureButtonLabel": "Take a new photo",
+        "usePictureButtonLabel": "Use the photo"
+    }
+}
