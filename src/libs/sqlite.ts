@@ -4,15 +4,16 @@ import * as SQLite from 'expo-sqlite'
 export async function migrateDbIfNeeded(db: SQLiteDatabase, version = 0) {
   const DATABASE_VERSION = version
   const userVersion = await db.getFirstAsync<{
-    userVersion: number
+    user_version: number
   }>('PRAGMA user_version')
 
-  let currentDbVersion = userVersion?.userVersion
+  let currentDbVersion = userVersion?.user_version
 
   if (currentDbVersion && currentDbVersion >= DATABASE_VERSION) {
     return
   }
-  if (currentDbVersion && currentDbVersion === 0) {
+
+  if (currentDbVersion !== undefined && currentDbVersion === 0) {
     await db.execAsync(`
   PRAGMA journal_mode = 'wal';
   CREATE TABLE IF NOT EXISTS users (

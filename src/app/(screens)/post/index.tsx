@@ -11,9 +11,13 @@ import { Header } from '@/components/ui/Header'
 import { SafeBox } from '@/components/ui/SafeBox'
 import { Text } from '@/components/ui/Text'
 import { useLanguage } from '@/hooks/useLanguage'
+import { useToast } from '@/hooks/useToast'
 import { client } from '@/libs/prismic'
 import { day } from '@/utils/dateFormatter'
 import { extractTextFromPrismic } from '@/utils/extractTextFromPrismic'
+
+import { SkeletonPost } from './SkeletonPost'
+import { SkeletonText } from './SkeletonText'
 
 type PostProps = {
   title: string
@@ -29,7 +33,9 @@ type PostProps = {
 
 export default function Post() {
   const { localizedStrings } = useLanguage()
+  const { showToast } = useToast()
   const [post, setPost] = useState<PostProps | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const { slug } = useLocalSearchParams() as { slug: string }
 
   async function getPost() {
@@ -58,8 +64,9 @@ export default function Post() {
       }
 
       setPost(postMapped)
+      setIsLoading(false)
     } catch (error) {
-      console.error(error)
+      showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
     }
   }
 
@@ -119,75 +126,89 @@ export default function Post() {
             </View>
           </View>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Text>
-              {post?.publishDateDistance} | {post?.publishDate}
-            </Text>
-            <Text>
-              {post?.timeToRead} {localizedStrings.postScreen.readTime}
-            </Text>
+            {isLoading && (
+              <>
+                <SkeletonText variant="primary" />
+                <SkeletonText variant="secondary" />
+              </>
+            )}
+
+            {!isLoading && (
+              <>
+                <Text>
+                  {post?.publishDateDistance} | {post?.publishDate}
+                </Text>
+                <Text>
+                  {post?.timeToRead} {localizedStrings.postScreen.readTime}
+                </Text>
+              </>
+            )}
           </View>
         </View>
         <Box style={{ padding: 5 }}>
-          <RichText
-            richText={post?.conteudo}
-            // default style for texts
-            defaultStyle={{
-              color: '#000',
-            }}
-            // specific style for each tag
-            styles={{
-              hyperlink: { textDecorationLine: 'underline' },
-              hyperlinkHover: {
-                textDecorationLine: undefined,
-              },
-              heading1: { fontSize: 30, marginTop: 15, marginBottom: 10 },
-              heading2: { fontSize: 27, marginTop: 15, marginBottom: 10 },
-              heading3: { fontSize: 24, marginTop: 15, marginBottom: 10 },
-              heading4: { fontSize: 22, marginTop: 15, marginBottom: 10 },
-              heading5: { fontSize: 19, marginTop: 15, marginBottom: 10 },
-              heading6: { fontSize: 18, marginTop: 15, marginBottom: 10 },
-              paragraph: { fontSize: 16, lineHeight: 22 },
-              list: {
-                marginLeft: 8,
-                marginVertical: 8,
-                fontSize: 16,
-                lineHeight: 22,
-              },
-              oList: {
-                marginLeft: 8,
-                marginVertical: 8,
-                fontSize: 16,
-                lineHeight: 22,
-              },
-              listItem: {
-                marginLeft: 8,
-                marginVertical: 8,
-                fontSize: 16,
-                lineHeight: 22,
-              },
-              oListItem: {
-                marginLeft: 8,
-                marginVertical: 8,
-                fontSize: 16,
-                lineHeight: 22,
-              },
-              strong: {
-                fontWeight: 'bold',
-              },
-              em: {
-                fontStyle: 'italic',
-              },
-            }}
-            onLinkPress={(data: any | undefined) => {
-              if (data?.link_type === 'Web') {
-                // const url = data.url.replace(
-                //   'https://makerist-ar://',
-                //   'makerist-ar://',
-                // )
-                return Linking.openURL(data.url)
-              }
-            }}
-          />
+          {isLoading && <SkeletonPost />}
+          {!isLoading && post && (
+            <RichText
+              richText={post?.conteudo}
+              // default style for texts
+              defaultStyle={{
+                color: '#000',
+              }}
+              // specific style for each tag
+              styles={{
+                hyperlink: { textDecorationLine: 'underline' },
+                hyperlinkHover: {
+                  textDecorationLine: undefined,
+                },
+                heading1: { fontSize: 30, marginTop: 15, marginBottom: 10 },
+                heading2: { fontSize: 27, marginTop: 15, marginBottom: 10 },
+                heading3: { fontSize: 24, marginTop: 15, marginBottom: 10 },
+                heading4: { fontSize: 22, marginTop: 15, marginBottom: 10 },
+                heading5: { fontSize: 19, marginTop: 15, marginBottom: 10 },
+                heading6: { fontSize: 18, marginTop: 15, marginBottom: 10 },
+                paragraph: { fontSize: 16, lineHeight: 22 },
+                list: {
+                  marginLeft: 8,
+                  marginVertical: 8,
+                  fontSize: 16,
+                  lineHeight: 22,
+                },
+                oList: {
+                  marginLeft: 8,
+                  marginVertical: 8,
+                  fontSize: 16,
+                  lineHeight: 22,
+                },
+                listItem: {
+                  marginLeft: 8,
+                  marginVertical: 8,
+                  fontSize: 16,
+                  lineHeight: 22,
+                },
+                oListItem: {
+                  marginLeft: 8,
+                  marginVertical: 8,
+                  fontSize: 16,
+                  lineHeight: 22,
+                },
+                strong: {
+                  fontWeight: 'bold',
+                },
+                em: {
+                  fontStyle: 'italic',
+                },
+              }}
+              onLinkPress={(data: any | undefined) => {
+                if (data?.link_type === 'Web') {
+                  // const url = data.url.replace(
+                  //   'https://makerist-ar://',
+                  //   'makerist-ar://',
+                  // )
+                  return Linking.openURL(data.url)
+                }
+              }}
+            />
+          )}
         </Box>
       </Box>
     </SafeBox>

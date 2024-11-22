@@ -131,7 +131,7 @@ export function LoginFormContainer() {
           <Button icon="login" mode="contained" onPress={handleSubmit(onLogin)}>
             {localizedStrings.loginScreen.loginButtonLabel}
           </Button>
-          <Link href="/screens/signup" asChild>
+          <Link href="/signup" asChild>
             <Button icon="account-group" mode="outlined">
               {localizedStrings.loginScreen.signUpButtonLabel}
             </Button>

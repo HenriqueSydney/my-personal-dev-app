@@ -7,9 +7,11 @@ import { Button } from 'react-native-paper'
 import { Box } from '@/components/ui/Box'
 import { Text } from '@/components/ui/Text'
 import { useLanguage } from '@/hooks/useLanguage'
+import { useToast } from '@/hooks/useToast'
 import { client } from '@/libs/prismic'
 import { day } from '@/utils/dateFormatter'
 
+import { SkeletonPostCard } from './SkeletonPostCard'
 import { SlugCard, SlugCardProps } from './SlugCard'
 
 type Props = {
@@ -17,30 +19,6 @@ type Props = {
   postsPerPage?: number
   query?: string
 }
-
-// type Posts = {
-//   id: string
-//   first_publication_date: string
-//   data: {
-//     image_principal: {
-//       dimensions: {
-//         width: number
-//         height: number
-//       }
-//       alt: string | null
-//       url: string
-//     }
-//     titulo: {
-//       text: string
-//     }[]
-//     conteudo: any[]
-//     tags: {
-//       tag: {
-//         text: string
-//       }[]
-//     }[]
-//   }
-// }
 
 type PostsType = SlugCardProps & {
   id: string
@@ -53,7 +31,9 @@ export function PostList({
   query = undefined,
 }: Props) {
   const { localizedStrings } = useLanguage()
+  const { showToast } = useToast()
   const [posts, setPosts] = useState<PostsType[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   async function fetchPosts() {
     try {
       const prismicPosts = await client.getAllByType('posts', {
@@ -87,8 +67,9 @@ export function PostList({
       })
 
       setPosts(mappedPrismicPosts)
+      setIsLoading(false)
     } catch (error) {
-      console.error(error)
+      showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
     }
   }
 
@@ -116,22 +97,27 @@ export function PostList({
         lightColor={mainPage ? undefined : '#ebebeb'}
         style={{ marginTop: 15 }}
       >
-        {posts.map((post) => (
-          <Link
-            key={post.id}
-            href={{
-              pathname: '/screens/post',
-              params: { slug: post.uid },
-            }}
-          >
-            <SlugCard
-              title={post.title}
-              excerpt={post.excerpt}
-              postedDate={day(post.postedDate).toDate()}
-              tags={post.tags}
-            />
-          </Link>
-        ))}
+        {!isLoading &&
+          posts.map((post) => (
+            <Link
+              key={post.id}
+              href={{
+                pathname: '/post',
+                params: { slug: post.uid },
+              }}
+            >
+              <SlugCard
+                title={post.title}
+                excerpt={post.excerpt}
+                postedDate={day(post.postedDate).toDate()}
+                tags={post.tags}
+              />
+            </Link>
+          ))}
+        {isLoading &&
+          Array.from({ length: mainPage ? 3 : 5 }, (_, i) => (
+            <SkeletonPostCard key={`skeleton-post-card-${i}`} />
+          ))}
       </Box>
       {mainPage && (
         <Link href="/blog" asChild>

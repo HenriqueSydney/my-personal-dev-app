@@ -122,7 +122,7 @@ export default function SignUp() {
       })
 
       reset()
-      navigation.navigate('screens/login/index')
+      navigation.navigate('/login/index')
     } catch (error) {
       if (error instanceof Error) {
         showToast(error.message, 'error')

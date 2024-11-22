@@ -1,10 +1,9 @@
 import { PostList } from '@/components/PostList'
 import { ProjectList } from '@/components/ProjectList'
+import { ContactContainer } from '@/components/tabsComponents/home/ContactContainer'
+import { DeveloperContainer } from '@/components/tabsComponents/home/DeveloperContainer'
 import { Header } from '@/components/ui/Header'
 import { SafeBox } from '@/components/ui/SafeBox'
-
-import { ContactContainer } from './components/home/ContactContainer'
-import { DeveloperContainer } from './components/home/DeveloperContainer'
 
 export default function HomeScreen() {
   return (

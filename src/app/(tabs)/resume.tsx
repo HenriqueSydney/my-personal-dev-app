@@ -1,4 +1,10 @@
 import ParallaxScrollView from '@/components/ParallaxScrollView'
+import { ProjectList } from '@/components/ProjectList'
+import { Education } from '@/components/tabsComponents/resume/Education'
+import { EmploymentHistory } from '@/components/tabsComponents/resume/EmploymentHistory'
+import { HardSkills } from '@/components/tabsComponents/resume/HardSkills'
+import { LanguageSkills } from '@/components/tabsComponents/resume/LanguageSkills'
+import { SoftSkills } from '@/components/tabsComponents/resume/SoftSkills'
 import { Box } from '@/components/ui/Box'
 import { Header } from '@/components/ui/Header'
 import { IconWithText } from '@/components/ui/IconWithText'
@@ -6,13 +12,6 @@ import { SafeBox } from '@/components/ui/SafeBox'
 import { Text } from '@/components/ui/Text'
 import { useLanguage } from '@/hooks/useLanguage'
 import { day } from '@/utils/dateFormatter'
-
-import { ProjectList } from './components/ProjectList'
-import { Education } from './components/resume/Education'
-import { EmploymentHistory } from './components/resume/EmploymentHistory'
-import { HardSkills } from './components/resume/HardSkills'
-import { LanguageSkills } from './components/resume/LanguageSkills'
-import { SoftSkills } from './components/resume/SoftSkills'
 
 export default function Resume() {
   const { localizedStrings } = useLanguage()

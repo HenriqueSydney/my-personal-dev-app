@@ -60,7 +60,7 @@ export function Header({
           <Appbar.Action
             icon="login"
             testID="test-id-header-login-button"
-            onPress={() => navigate('screens/login/index')}
+            onPress={() => navigate('/login/index')}
           />
         )}
 
@@ -72,7 +72,7 @@ export function Header({
               </Text>
               <Text>{user.name.split(' ')[0]}</Text>
             </View>
-            <Link href="/screens/profile">
+            <Link href="/profile">
               <View>
                 <Avatar.Image
                   testID="avatar-image"

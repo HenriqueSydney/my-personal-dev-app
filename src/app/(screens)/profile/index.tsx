@@ -131,14 +131,14 @@ export default function Profile() {
             <Button
               icon="account-edit"
               mode="contained"
-              onPress={() => navigate('screens/edit-profile/index')}
+              onPress={() => navigate('/edit-profile/index')}
             >
               {localizedStrings.profile.updateProfileButtonLabel}
             </Button>
             <Button
               icon="pencil-lock"
               mode="outlined"
-              onPress={() => navigate('screens/update-password/index')}
+              onPress={() => navigate('/update-password/index')}
             >
               {localizedStrings.profile.updatePasswordLabel}
             </Button>

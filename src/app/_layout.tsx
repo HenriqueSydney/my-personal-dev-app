@@ -54,49 +54,8 @@ export default function RootLayout() {
                       options={{ headerShown: false }}
                     />
                     <Stack.Screen
-                      name="screens/profile/index"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: false,
-                      }}
-                    />
-
-                    <Stack.Screen
-                      name="screens/edit-profile/index"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: false,
-                      }}
-                    />
-                    <Stack.Screen
-                      name="screens/update-password/index"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: false,
-                      }}
-                    />
-                    <Stack.Screen
-                      name="screens/signup/index"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: false,
-                      }}
-                    />
-                    <Stack.Screen
-                      key="Login"
-                      name="screens/login/index"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: false,
-                      }}
-                    />
-                    <Stack.Screen
-                      key="Post"
-                      name="screens/post/index"
-                      options={{
-                        headerShown: false,
-                        navigationBarHidden: false,
-                      }}
+                      name="(screens)"
+                      options={{ headerShown: false }}
                     />
                     <Stack.Screen name="+not-found" />
                   </Stack>
