@@ -1,50 +1,116 @@
-# Welcome to your Expo app 👋
+# 📱 Portfólio Dev Pessoal com React Native e Expo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bem-vindo ao repositório do **Portfólio Dev Pessoal**, um aplicativo desenvolvido com **React Native** e **Expo** para dispositivos móveis. Este projeto visa centralizar informações do desenvolvedor, como portfólio, currículo, blog e funcionalidades personalizadas de gerenciamento de perfil.
 
-## Get started
+---
 
-1. Install dependencies
+## 🎯 Escopo do Projeto
 
+O objetivo principal do aplicativo é ser uma vitrine profissional, oferecendo:  
+- Exposição de informações relevantes do desenvolvedor (perfil e currículo).  
+- Um blog para compartilhar conhecimento e experiências de desenvolvimento.  
+- Funcionalidades personalizadas para o gerenciamento de usuários.
+
+---
+
+## 🚀 Features Implementadas
+
+### 🌟 Páginas
+- **Página Inicial**
+  - Exibe as principais informações do portfólio, como nome, título e links para redes sociais.
+  
+- **Blog**
+  - Listagem de posts integrados com a API **Prismic IO**.
+  
+- **Currículo**
+  - Página dedicada para exibir o currículo completo.
+
+- **Profile**
+  - Gerenciamento completo do perfil do usuário:
+    - Edição de informações.
+    - Alteração de senha.
+    - Exclusão de perfil.
+    - Logout.
+
+### 📲 Funcionalidades Mobile
+- **Gestão de Usuários**
+  - Dados armazenados localmente usando **SQLite** (implementação conceitual para fins de backlog futuro).
+  
+- **Acesso à Câmera**
+  - Permite ao usuário tirar uma foto para compor o perfil.
+  
+- **Acesso às Fotos**
+  - O usuário pode selecionar imagens da galeria para incluir no perfil.
+  
+- **Notificações**
+  - Sistema de notificações integrado para engajamento do usuário.
+
+### 🌐 Integrações de API
+- **GitHub API**
+  - Para acessar informações de repositórios e projetos.
+  
+- **Prismic IO**
+  - Para gerenciar e exibir os posts do blog.
+
+---
+
+## 📝 Backlogs
+
+### 📌 Funcionalidades Futuras
+1. **Aplicação Web**
+   - Desenvolvimento de uma aplicação web com **Next.js** e **Node.js** para sincronização com a versão mobile.
+
+2. **Gestão de Usuários pelo Backend**
+   - A gestão de usuários será migrada para um sistema backend dedicado.
+
+3. **Autenticação via Providers**
+   - Integração com serviços de autenticação como:
+     - Google
+     - Azure
+     - GitHub
+     - GitLab
+
+4. **Links para Redes Sociais**
+   - Adicionar links clicáveis para plataformas como LinkedIn, Twitter, WhatsUp e GitHub.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **React Native**  
+- **Expo**  
+- **SQLite**  
+- **GitHub API**  
+- **Prismic IO**  
+
+---
+
+## 🧩 Instalação e Execução
+
+1. **Clone este repositório:**
+   ```bash
+   git clone https://github.com/HenriqueSydney/my-personal-dev-app.git
+   ```
+
+2. **Navegue até o diretório do projeto:**
+   ```bash
+   cd portfolio-dev-pessoal
+   ```
+
+3. **Instale as dependências:**
    ```bash
    npm install
    ```
 
-2. Start the app
+4. **Inicie o servidor Expo:**
 
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+**Caso queira Buildar a aplicação, no formato APK, execute:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+   ```bash
+   eas build -p android --profile preview --local
+   ```
+**Mais informações sobre build leia a documentação do Expo:** https://docs.expo.dev/build/introduction/
