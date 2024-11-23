@@ -45,12 +45,18 @@ O objetivo principal do aplicativo é ser uma vitrine profissional, oferecendo:
 - **Notificações**
   - Sistema de notificações integrado para engajamento do usuário.
 
+- **Suporte a Dark e Light mode**
+
+- **Internacionalização (pt-BR e en-US)**
+  - Internacionalização das mensagens, labels e titles;
+  - **Backlog:** Mensagens de validação de entrada de texto.
+
 ### 🌐 Integrações de API
 - **GitHub API**
   - Para acessar informações de repositórios e projetos.
   
 - **Prismic IO**
-  - Para gerenciar e exibir os posts do blog.
+  - CMS para gerenciar e exibir os posts do blog.
 
 ---
 
@@ -73,6 +79,12 @@ O objetivo principal do aplicativo é ser uma vitrine profissional, oferecendo:
 4. **Links para Redes Sociais**
    - Adicionar links clicáveis para plataformas como LinkedIn, Twitter, WhatsUp e GitHub.
 
+5. **Migração dos dados do currículo para o Prismic**
+   - Migração das informações dispostas no currículo para o gerenciamento via CMS Prismic IO.
+
+5. **Criação de rota para certificados e certificações**
+   - Criação de rotas/screens para exibição de certificados e certificações.
+
 ---
 
 ## 🛠️ Tecnologias Utilizadas
@@ -80,8 +92,7 @@ O objetivo principal do aplicativo é ser uma vitrine profissional, oferecendo:
 - **React Native**  
 - **Expo**  
 - **SQLite**  
-- **GitHub API**  
-- **Prismic IO**  
+- **Prismic IO SDK**  
 
 ---
 
