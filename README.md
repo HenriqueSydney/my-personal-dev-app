@@ -85,6 +85,12 @@ O objetivo principal do aplicativo é ser uma vitrine profissional, oferecendo:
 5. **Criação de rota para certificados e certificações**
    - Criação de rotas/screens para exibição de certificados e certificações.
 
+6. **Testes**
+   - Ampliação de testes unitários e criação de testes e2e.
+
+7. **Pipeline CI/CD**
+   - Criação de uma Pipeline CI/CD para execução de testes, verificações de segurança, build para distribuição em loja Android e publicação do APP.
+
 ---
 
 ## 🛠️ Tecnologias Utilizadas
