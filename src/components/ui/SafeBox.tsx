@@ -1,5 +1,12 @@
 import { PropsWithChildren } from 'react'
-import { ScrollView, StyleProp, View, ViewStyle } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleProp,
+  View,
+  ViewStyle,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useThemeColor } from '@/hooks/useThemeColor'
@@ -21,12 +28,17 @@ export function SafeBox({ style, children, lightColor, darkColor }: Props) {
     <SafeAreaView
       style={[{ backgroundColor, flex: 1, minWidth: '100%' }, style]}
     >
-      <ScrollView fadingEdgeLength={100} style={{ minHeight: '100%' }}>
-        <View style={{ minHeight: '100%', justifyContent: 'space-between' }}>
-          <View style={{ flex: 1 }}>{children}</View>
-          <Footer />
-        </View>
-      </ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+      >
+        <ScrollView fadingEdgeLength={100} style={{ minHeight: '100%' }}>
+          <View style={{ minHeight: '100%', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1 }}>{children}</View>
+            <Footer />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }

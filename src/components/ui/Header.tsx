@@ -25,7 +25,7 @@ export function Header({
     { light: '#f7f6f6', dark: '#131922' },
     'background',
   )
-  const { goBack, navigate } = useNavigation()
+  const { goBack } = useNavigation()
   return (
     <View
       style={{
@@ -57,11 +57,9 @@ export function Header({
         )}
         <Appbar.Content title={title} />
         {!user && showLoginIcon && (
-          <Appbar.Action
-            icon="login"
-            testID="test-id-header-login-button"
-            onPress={() => navigate('/login/index')}
-          />
+          <Link href="/login">
+            <Appbar.Action icon="login" testID="test-id-header-login-button" />
+          </Link>
         )}
 
         {user && (

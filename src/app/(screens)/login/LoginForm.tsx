@@ -80,14 +80,15 @@ export function LoginFormContainer() {
 
       await setUser(userWithoutPassword)
       navigation.navigate('(tabs)')
+      reset()
     } catch (error) {
       if (error instanceof Error) {
         showToast(error.message, 'error')
       } else {
         showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
       }
+      reset({ password: '' })
     }
-    reset()
   }
 
   useEffect(() => {

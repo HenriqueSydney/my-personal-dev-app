@@ -122,7 +122,8 @@ export default function SignUp() {
       })
 
       reset()
-      navigation.navigate('/login/index')
+      navigation.goBack()
+      showToast(localizedStrings.signUpScreen.signUpSuccessMessage, 'success')
     } catch (error) {
       if (error instanceof Error) {
         showToast(error.message, 'error')

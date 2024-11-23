@@ -45,7 +45,8 @@
         "confirmPasswordLabel": "Confirm Password",
         "signUpButtonLabel": "Register",
         "selectPictureMenuOptionTitle": "Select a photo",
-        "takePictureMenuOptionTitle": "Take a picture"
+        "takePictureMenuOptionTitle": "Take a picture",
+        "signUpSuccessMessage": "Registration successful. You can now log in to your account."
     },
     "profile": {
         "signOutLabel": "Sign Out",

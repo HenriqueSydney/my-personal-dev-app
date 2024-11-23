@@ -8,7 +8,8 @@ export default function TabLayout() {
       }}
     >
       <Stack.Screen
-        name="/profile/index"
+        key="Profile"
+        name="profile/index"
         options={{
           headerShown: false,
           navigationBarHidden: false,
@@ -16,21 +17,24 @@ export default function TabLayout() {
       />
 
       <Stack.Screen
-        name="/edit-profile/index"
+        key="EditProfile"
+        name="edit-profile/index"
         options={{
           headerShown: false,
           navigationBarHidden: false,
         }}
       />
       <Stack.Screen
-        name="/update-password/index"
+        key="UpdatePassword"
+        name="update-password/index"
         options={{
           headerShown: false,
           navigationBarHidden: false,
         }}
       />
       <Stack.Screen
-        name="/signup/index"
+        key="Signup"
+        name="signup/index"
         options={{
           headerShown: false,
           navigationBarHidden: false,
@@ -38,7 +42,7 @@ export default function TabLayout() {
       />
       <Stack.Screen
         key="Login"
-        name="/login/index"
+        name="login/index"
         options={{
           headerShown: false,
           navigationBarHidden: false,
@@ -46,7 +50,7 @@ export default function TabLayout() {
       />
       <Stack.Screen
         key="Post"
-        name="/post/index"
+        name="post/index"
         options={{
           headerShown: false,
           navigationBarHidden: false,

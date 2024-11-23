@@ -44,7 +44,7 @@ let dbInstance: DatabaseInstance = null
 export const getDatabase = async (): Promise<SQLiteDatabase> => {
   if (!dbInstance) {
     dbInstance = await SQLite.openDatabaseAsync('UserDB.db')
-    migrateDbIfNeeded(dbInstance, 0)
+    await migrateDbIfNeeded(dbInstance, 0)
   }
   return dbInstance
 }

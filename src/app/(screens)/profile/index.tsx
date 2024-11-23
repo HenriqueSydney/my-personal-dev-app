@@ -1,5 +1,6 @@
 import * as Notifications from 'expo-notifications'
-import { useNavigation } from 'expo-router'
+import { Link, useNavigation } from 'expo-router'
+import { useEffect, useState } from 'react'
 import { Button } from 'react-native-paper'
 
 import { Box } from '@/components/ui/Box'
@@ -25,9 +26,10 @@ export default function Profile() {
   const { localizedStrings } = useLanguage()
   const { user, setUser } = useUser()
   const { showToast } = useToast()
-  const { goBack, navigate } = useNavigation()
+  const { goBack, canGoBack } = useNavigation()
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false)
 
-  if (!user) {
+  if (!user && !isDeletingAccount) {
     showToast(localizedStrings.sharedMessages.errors.userNotFound, 'error')
     goBack()
   }
@@ -39,13 +41,14 @@ export default function Profile() {
   }
 
   async function handleRemoveUser() {
+    setIsDeletingAccount(true)
     try {
       if (user) {
         const { deleteUserByEmail } = await userRepository()
         await deleteUserByEmail(user.email)
 
         await setUser(null)
-        showToast('Que pena =( Volte sempre que desejar! ', 'warning')
+
         await Notifications.scheduleNotificationAsync({
           content: {
             title: 'Que pena!',
@@ -53,13 +56,23 @@ export default function Profile() {
           },
           trigger: null,
         })
-        goBack()
+        if (canGoBack()) {
+          showToast('Que pena =( Volte sempre que desejar! ', 'warning')
+          goBack()
+        }
       }
     } catch (err) {
       showToast(localizedStrings.sharedMessages.errors.genericError, 'error')
+      setIsDeletingAccount(false)
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    if (user) {
+      setIsDeletingAccount(false)
+    }
+  }, [user])
 
   return (
     <SafeBox
@@ -128,20 +141,16 @@ export default function Profile() {
           }}
         >
           <Box style={{ gap: 8 }}>
-            <Button
-              icon="account-edit"
-              mode="contained"
-              onPress={() => navigate('/edit-profile/index')}
-            >
-              {localizedStrings.profile.updateProfileButtonLabel}
-            </Button>
-            <Button
-              icon="pencil-lock"
-              mode="outlined"
-              onPress={() => navigate('/update-password/index')}
-            >
-              {localizedStrings.profile.updatePasswordLabel}
-            </Button>
+            <Link href="/edit-profile" asChild>
+              <Button icon="account-edit" mode="contained">
+                {localizedStrings.profile.updateProfileButtonLabel}
+              </Button>
+            </Link>
+            <Link href="/update-password" asChild>
+              <Button icon="pencil-lock" mode="outlined">
+                {localizedStrings.profile.updatePasswordLabel}
+              </Button>
+            </Link>
           </Box>
 
           <Button

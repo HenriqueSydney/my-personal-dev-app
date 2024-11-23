@@ -46,6 +46,7 @@ export interface Translations {
     signUpButtonLabel: string
     selectPictureMenuOptionTitle: string
     takePictureMenuOptionTitle: string
+    signUpSuccessMessage: string
   }
   profile: {
     signOutLabel: string

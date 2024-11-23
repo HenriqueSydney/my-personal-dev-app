@@ -45,7 +45,8 @@
         "confirmPasswordLabel": "Confirmação da senha",
         "signUpButtonLabel": "Cadastrar",
         "selectPictureMenuOptionTitle": "Selecionar uma foto",
-        "takePictureMenuOptionTitle": "Tirar uma foto"
+        "takePictureMenuOptionTitle": "Tirar uma foto",
+        "signUpSuccessMessage": "Cadastro realizado com sucesso. Agora você já pode entrar em sua conta"
     },
     "profile": {
         "signOutLabel": "Sair",
